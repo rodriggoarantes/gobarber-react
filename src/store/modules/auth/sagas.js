@@ -6,7 +6,6 @@ import { TYPES, signInSuccess } from './actions';
 export function* signIn({ payload }) {
   const { email, password } = payload;
 
-  /*
   const response = yield call(api.post, 'sessions', {
     email,
     password,
@@ -18,9 +17,8 @@ export function* signIn({ payload }) {
     console.tron.error('Usuário não é prestador de serviço');
     return;
   }
-  */
 
-  yield put(signInSuccess(123, { login: 'rodrigo' }));
+  yield put(signInSuccess(token, user));
 
   history.push('/dashboard');
 }
