@@ -10,7 +10,10 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <img src={logo} alt="GoBarber" />
+          <img
+            src="https://api.adorable.io/avatars/50/avatar.png"
+            alt="GoBarber"
+          />
           <Link to="/dashboard">DASHBOARD</Link>
         </nav>
         <aside>
