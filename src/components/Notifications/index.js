@@ -21,8 +21,18 @@ export default function Notifications() {
     setVisible(!visible);
   };
 
+  const handleMarkAsRead = async id => {
+    await api.put(`notifications/${id}`);
+
+    setNotifications(
+      notifications.map(noti =>
+        noti._id === id ? { ...noti, read: true } : noti
+      )
+    );
+  };
+
   const loadNotifications = async () => {
-    const response = await api.get('/notifications');
+    const response = await api.get('notifications');
 
     const data = response.data.map(noti => ({
       ...noti,
@@ -46,51 +56,17 @@ export default function Notifications() {
 
       <NotificationList visible={visible}>
         <Scroll>
-          <Notification unread>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
-          <Notification>
-            <p>Você possui um novo agendamento</p>
-            <time>há 2 dias</time>
-            <button type="button">Marcar como lida</button>
-          </Notification>
+          {notifications.map(notification => (
+            <Notification key={notification._id} unread={!notification.read}>
+              <p>{notification.content}</p>
+              <time>{notification.timeDistance}</time>
+              <button
+                type="button"
+                onClick={() => handleMarkAsRead(notification._id)}>
+                Marcar como lida
+              </button>
+            </Notification>
+          ))}
         </Scroll>
       </NotificationList>
     </Container>
