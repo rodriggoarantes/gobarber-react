@@ -13,8 +13,14 @@ export default function user(state = INITIAL_STATE, action) {
         draft.profile = action.payload.user;
         break;
       }
+
       case TYPES.UPDATE_SUCCESS: {
         draft.profile = action.payload.profile;
+        break;
+      }
+
+      case TYPES.SIGNOUT: {
+        draft.profile = null;
         break;
       }
       default:

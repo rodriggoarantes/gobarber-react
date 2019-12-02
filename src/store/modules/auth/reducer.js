@@ -26,6 +26,12 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+
+      case TYPES.SIGNOUT: {
+        draft.token = null;
+        draft.signed = false;
+        break;
+      }
       default:
     }
   });

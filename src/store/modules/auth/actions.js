@@ -3,6 +3,7 @@ export const TYPES = {
   SIGNIN_SUCCESS: '@auth/SIGN_IN_SUCCESS',
   SIGNUP: '@auth/SIGN_UP_REQUEST',
   SIGN_FAILURE: '@auth/SIGN_FAILURE',
+  SIGNOUT: '@auth/SIGN_OUT_REQUEST',
 };
 
 export function signInRequest(email, password) {
@@ -29,5 +30,11 @@ export function signUpRequest(name, email, password) {
 export function signFailure() {
   return {
     type: TYPES.SIGN_FAILURE,
+  };
+}
+
+export function signOut() {
+  return {
+    type: TYPES.SIGNOUT,
   };
 }
