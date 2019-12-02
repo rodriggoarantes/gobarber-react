@@ -12,6 +12,7 @@ import {
   setHours,
   setMinutes,
   setSeconds,
+  setMilliseconds,
 } from 'date-fns';
 import br from 'date-fns/locale/pt-BR';
 
@@ -19,7 +20,7 @@ import api from '~/services/api';
 
 import { Container, Time } from './styles';
 
-const range = [7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20];
+const range = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 export default function Dashboard() {
   const [schedule, setSchedule] = useState([]);
@@ -47,18 +48,17 @@ export default function Dashboard() {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
       const data = range.map(hour => {
-        const checkDate = setSeconds(setMinutes(setHours(date, hour), 0), 0);
+        const checkDate = setMilliseconds(
+          setSeconds(setMinutes(setHours(date, hour), 0), 0),
+          0
+        );
         const compareDate = utcToZonedTime(checkDate, timezone);
 
         return {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
-          appointment: response.data.find(a => {
-            const equalsTo = isEqual(parseISO(a.date), compareDate);
-            console.tron.log(`A: ${isEqual(parseISO(a.date), compareDate)}`);
-            console.tron.log(`A: ${parseISO(a.date)}`);
-            console.tron.log(`B: ${compareDate}`);
-            return equalsTo;
+          appointment: response.data.find(apoint => {
+            return isEqual(parseISO(apoint.date), compareDate);
           }),
         };
       });
