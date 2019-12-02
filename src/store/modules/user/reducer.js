@@ -1,5 +1,6 @@
 import produce from 'immer';
-import { TYPES } from '../actions';
+import { TYPES } from './actions';
+import { TYPES as AUTH_TYPES } from '../auth/actions';
 
 const INITIAL_STATE = {
   profile: null,
@@ -8,8 +9,12 @@ const INITIAL_STATE = {
 export default function user(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
-      case TYPES.SIGNIN_SUCCESS: {
+      case AUTH_TYPES.SIGNIN_SUCCESS: {
         draft.profile = action.payload.user;
+        break;
+      }
+      case TYPES.UPDATE_SUCCESS: {
+        draft.profile = action.payload.profile;
         break;
       }
       default:

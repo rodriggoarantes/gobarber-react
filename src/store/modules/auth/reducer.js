@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { TYPES } from '../actions';
+import { TYPES } from './actions';
 
 const INITIAL_STATE = {
   token: null,
